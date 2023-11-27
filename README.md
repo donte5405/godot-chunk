@@ -56,7 +56,7 @@ However, it can be tricky to organise the project in this form of naming. Good w
         - _1_1.tscn
         ...
 ```
-To save the scene into chunk form, on each chunk, use `Save Branch as Scene` option and save them accordingly. After the scene is saved, undo the change to revert the node back to local type.
+To save the scene into chunk form, on each chunk, use `Save Branch as Scene` option and save them accordingly. After the scene is saved, undo the change to revert the node back to previous (local) type again.
 
 ---
 
