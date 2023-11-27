@@ -1,0 +1,30 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://addons/chunk/main.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scn/scn_test.res/n3d.basic_movement.gd" type="Script" id=2]
+
+[sub_resource type="CapsuleMesh" id=1]
+
+[node name="ScnTest" type="Spatial"]
+
+[node name="Chunk" parent="." instance=ExtResource( 1 )]
+chunk_distance = 10
+chunk_directory = "res://scn/chunk"
+node_to_follow_path = NodePath("../Player")
+
+[node name="Player" type="Spatial" parent="."]
+script = ExtResource( 2 )
+speed = 64.0
+
+[node name="MeshInstance" type="MeshInstance" parent="Player"]
+transform = Transform( 4, 0, 0, 0, -1.74846e-07, 4, 0, -4, -1.74846e-07, 0, 20, 0 )
+mesh = SubResource( 1 )
+
+[node name="Camera" type="Camera" parent="Player"]
+transform = Transform( 1, 0, 0, 0, 0.707107, 0.707107, 0, -0.707107, 0.707107, 0, 128, 128 )
+current = true
+far = 1000.0
+
+[node name="DirectionalLight" type="DirectionalLight" parent="."]
+transform = Transform( -0.146447, -0.853553, 0.5, -0.5, 0.5, 0.707106, -0.853553, -0.146447, -0.5, 0, 147, 0 )
+shadow_enabled = true

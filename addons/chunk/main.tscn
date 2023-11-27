@@ -1,0 +1,16 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://addons/chunk/main.gd" type="Script" id=1]
+[ext_resource path="res://addons/chunk/scr/comp.cam_exit_area.gd" type="Script" id=2]
+[ext_resource path="res://addons/chunk/chunk_default.tscn" type="PackedScene" id=3]
+[ext_resource path="res://addons/chunk/scr/comp.cam_pos_changed.gd" type="Script" id=4]
+
+[node name="Chunk" type="Spatial"]
+script = ExtResource( 1 )
+chunk_default_scene = ExtResource( 3 )
+
+[node name="CamExitArea" type="Node" parent="."]
+script = ExtResource( 2 )
+
+[node name="CamPosChanged" type="Node" parent="."]
+script = ExtResource( 4 )

@@ -1,0 +1,32 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/chunk/chunk_default.gd" type="Script" id=1]
+
+[sub_resource type="PlaneMesh" id=1]
+
+[sub_resource type="CylinderMesh" id=2]
+
+[sub_resource type="PrismMesh" id=3]
+size = Vector3( 2, 10, 2 )
+
+[sub_resource type="SphereMesh" id=4]
+
+[node name="ChunkDefault" type="Spatial"]
+script = ExtResource( 1 )
+shapes = [ NodePath("MeshInstance2"), NodePath("MeshInstance3"), NodePath("MeshInstance4") ]
+
+[node name="MeshInstance" type="MeshInstance" parent="."]
+transform = Transform( 32, 0, 0, 0, 1, 0, 0, 0, 32, 0, 0, 0 )
+mesh = SubResource( 1 )
+
+[node name="MeshInstance2" type="MeshInstance" parent="."]
+transform = Transform( 32, 0, 0, 0, 2, 0, 0, 0, 32, 0, 2, 0 )
+mesh = SubResource( 2 )
+
+[node name="MeshInstance3" type="MeshInstance" parent="."]
+transform = Transform( 32, 0, 0, 0, 2, 0, 0, 0, 32, 0, 10, 0 )
+mesh = SubResource( 3 )
+
+[node name="MeshInstance4" type="MeshInstance" parent="."]
+transform = Transform( 32, 0, 0, 0, 32, 0, 0, 0, 32, 0, 0, 0 )
+mesh = SubResource( 4 )

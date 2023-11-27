@@ -1,0 +1,50 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Reference",
+"class": "Chunk",
+"language": "GDScript",
+"path": "res://addons/chunk/scr/chunk.gd"
+}, {
+"base": "Node",
+"class": "GlobalSignal",
+"language": "GDScript",
+"path": "res://addons/global_signal.gd"
+} ]
+_global_script_class_icons={
+"Chunk": "",
+"GlobalSignal": ""
+}
+
+[application]
+
+config/name="Chunk"
+run/main_scene="res://scn/scn_test.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/stretch/mode="2d"
+
+[gui]
+
+common/drop_mouse_on_gui_input_disabled=true
+
+[physics]
+
+common/enable_pause_aware_picking=true
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"
