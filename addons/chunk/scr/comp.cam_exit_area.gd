@@ -20,35 +20,26 @@ func _loop() -> void:
 
 
 func chunk(following: Spatial, direction: Vector2, distance: int, size: float) -> void:
+	var dir := Directory.new()
+	var direction_inv := -direction
 	var chunk_position := Chunk.get_position()
 	var chunk_new_position := chunk_position + direction
-	var direction_inv := -direction
+	var chunks_circle := Chunk.get_iteratable_circle(chunk_new_position, distance)
+	var chunks_circle_center := Chunk.get_chunk_circle_centered()
+	var container := Chunk.get_container()
 	size = size * 2
 
+	get_tree().call_group_flags(SceneTree.GROUP_CALL_REALTIME, "chunk", "add_to_group", "chunk_to_be_removed")
 	for node in get_tree().get_nodes_in_group("chunk") + [ following ]:
 		node.translation = node.translation + Vector3(direction_inv.x, 0, direction_inv.y) * size
-
-	chunk_unload(chunk_position, direction_inv, distance)
-	load_chunk(chunk_new_position, direction, distance, size)
+	for i in range(chunks_circle.size()):
+		var chunk: Array = chunks_circle[i]
+		var node: Spatial = container.get_node_or_null("_%d_%d" % chunk)
+		if is_instance_valid(node):
+			node.remove_from_group("chunk_to_be_removed")
+		else:
+			var chunk_center: Array = chunks_circle_center[i]
+			container.add_child(Chunk.load_chunk(dir, chunk[0], chunk[1], chunk_center[0], chunk_center[1], size))
+	for node in get_tree().get_nodes_in_group("chunk_to_be_removed"):
+		Chunk.unload_chunk_node(node)
 	Chunk.set_position(chunk_new_position, false)
-
-
-func chunk_unload(chunk_position: Vector2, direction: Vector2, distance: int) -> void:
-	var container := Chunk.get_container()
-	for chunk in Chunk.get_iteratable_directed(chunk_position, direction * distance):
-		Chunk.unload_chunk(container, chunk)
-
-
-func load_chunk(chunk_position: Vector2, direction: Vector2, distance: int, size: int) -> void:
-	var i := 0
-	var dir := Directory.new()
-	var container := Chunk.get_container()
-	var directory_path := Chunk.get_directory()
-	var coor := Chunk.bounds(-distance, distance)
-	var default_scene := Chunk.get_default_scene()
-	for chunk in Chunk.get_iteratable_directed(chunk_position, direction * distance):
-		if direction.x != 0:
-			container.add_child(Chunk.load_chunk(dir, chunk[0], chunk[1], distance * sign(direction.x), coor[i], size))
-		elif direction.y != 0:
-			container.add_child(Chunk.load_chunk(dir, chunk[0], chunk[1], coor[i], distance * sign(direction.y), size))
-		i += 1

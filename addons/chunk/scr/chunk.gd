@@ -1,6 +1,10 @@
 class_name Chunk
 
 
+static func get_chunk_circle_centered() -> Array:
+	return Engine.get_meta("chunk_circle_centered", [])
+
+
 static func get_container() -> Node:
 	return Engine.get_meta("chunk_container")
 
@@ -42,7 +46,7 @@ static func set_directory(value: String, notify: bool = true) -> void:
 
 
 static func get_distance() -> int:
-	return Engine.get_meta("chunk_distance", 1)
+	return Engine.get_meta("chunk_distance", 2)
 
 
 static func set_distance(value: int, notify: bool = true) -> void:
@@ -72,6 +76,7 @@ static func get_position() -> Vector2:
 
 
 static func set_position(value: Vector2, notify: bool = true) -> void:
+	Engine.set_meta("chunk_circle_centered", get_iteratable_circle(Vector2(), get_distance()))
 	if notify:
 		GlobalSignal.emit("chunk_position_changing", [ value ])
 		Engine.set_meta("chunk_position", value)
@@ -97,36 +102,17 @@ static func bounds(a: int, b: int) -> Array:
 	return range(a, b + 1)
 
 
-static func get_iteratable(position: Vector2, distance: int = 1) -> Array:
+static func get_iteratable_circle(position: Vector2, distance: int = 1, as_string: bool = false) -> Array:
 	var i := 0
 	var arr := []
 	arr.resize(pow(2 * distance + 1, 2));
-	for y in bounds(position.y - distance, position.y + distance):
-		for x in bounds(position.x - distance, position.x + distance):
-			arr[i] = [x, y]
-			i += 1
+	for y in bounds(-distance, distance):
+		for x in bounds(-distance, distance):
+			if Vector2(x, y).length() <= distance * 1.20:
+				arr[i] = [position.x + x, position.y + y]
+				i += 1
+	arr.resize(i)
 	return arr
-
-
-static func get_iteratable_directed(position: Vector2, direction: Vector2) -> Array:
-	assert(direction.length() != 0, "\"direction\" cannot be length of zero")
-	var i := 0
-	var arr := []
-	var length := int(direction.length())
-	arr.resize(2 * length + 1);
-	if direction.x != 0:
-		var x := position.x + sign(direction.x) * length
-		for y in bounds(position.y - length, position.y + length):
-			arr[i] = [x, y]
-			i += 1
-		return arr
-	if direction.y != 0:
-		var y := position.y + sign(direction.y) * length
-		for x in bounds(position.x - length, position.x + length):
-			arr[i] = [x, y]
-			i += 1
-		return arr
-	return []
 
 
 static func load_chunk(dir: Directory, chunk_x: int, chunk_y: int, x: int, y: int, chunk_size: float) -> Spatial:
@@ -144,12 +130,6 @@ static func load_chunk(dir: Directory, chunk_x: int, chunk_y: int, x: int, y: in
 	node.name = node_name
 	GlobalSignal.emit("chunk_loaded", [ chunk_x, chunk_y, node ])
 	return node
-
-
-static func unload_chunk(container: Node, chunk: Array) -> void:
-	var node := container.get_node_or_null("_%d_%d" % chunk)
-	if is_instance_valid(node):
-		unload_chunk_node(node)
 
 
 static func unload_chunk_node(node: Node) -> void:

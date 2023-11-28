@@ -20,7 +20,7 @@ I hate Godot 4 :p
 2. On the scene that you want to start using chunk system, add `main.gd` node into the scene.
 3. On the `Chunk` node, in property inspector, there are few options that you need to setup. Configure properties 
     - **Chunk Size** indicates your scene size, measured by object scaling. Default as 32, which is the same size as ones in the project example and `chunk_default.tscn`.
-    - **Chunk Distance** indicates render distance from the center of the point of interest (**Node To Follow**).
+    - **Chunk Distance** indicates render distance from the center of the point of interest (**Node To Follow**). Default as 2.
     - **Chunk Position** indicates firstly loaded chunk position Default as `(0, 0)`.
     - **Chunk Default Scene** indicates `PackedScene` that will be loaded by default if there aren't any scenes. Default as sameple scene inside the plugin directory.
     - **Chunk Directory** indicates a directory (folder) that store all chunk files.

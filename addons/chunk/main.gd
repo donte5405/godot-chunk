@@ -2,7 +2,7 @@ extends Spatial
 
 
 export var chunk_size := 32.0
-export var chunk_distance := 1
+export(int, 2, 2147483647) var chunk_distance := 2
 export var chunk_position := Vector2()
 export var chunk_default_scene: PackedScene
 export(String, DIR) var chunk_directory := ""
