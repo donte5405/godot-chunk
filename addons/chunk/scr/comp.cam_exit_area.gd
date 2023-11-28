@@ -25,9 +25,7 @@ func chunk(following: Spatial, direction: Vector2, distance: int, size: float) -
 	var direction_inv := -direction
 	size = size * 2
 
-	if not following.is_in_group("chunk"):
-		following.add_to_group("chunk")
-	for node in get_tree().get_nodes_in_group("chunk"):
+	for node in get_tree().get_nodes_in_group("chunk") + [ following ]:
 		node.translation = node.translation + Vector3(direction_inv.x, 0, direction_inv.y) * size
 
 	chunk_unload(chunk_position, direction_inv, distance)
