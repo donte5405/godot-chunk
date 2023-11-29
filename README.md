@@ -35,7 +35,7 @@ _2_0.tscn
 ```
 Another example, if its coordinate is `(-1, -2)`, the scene name will be named as:
 ```
-_-1,-2.tscn
+_-1_-2.tscn
 ```
 However, it can be tricky to organise the project in this form of naming. Good way to deal with this is to have separated level designer scenes that combine multiple chunk sections together, and omit them out in the production environment. This is an example of the optimal project structure.
 ```
