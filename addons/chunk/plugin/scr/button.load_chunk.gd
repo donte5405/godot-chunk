@@ -25,15 +25,10 @@ func _button_pressed() -> void:
 		printerr("This is not a chunk scene, will not load chunks here!")
 		return
 
-	var chunk_boundaries := scene.get_node_or_null("Boundaries") as Spatial
-	if chunk_boundaries:
-		chunk_boundaries.name = "_%d" % randi()
-		chunk_boundaries.queue_free()
-	chunk_boundaries = Spatial.new()
 	var chunk_template := preload("res://addons/chunk/chunk_template.tscn")
-	chunk_boundaries.name = "Boundaries"
-	scene.add_child(chunk_boundaries)
-	chunk_boundaries.owner = scene
+	for chunk_boundary in get_tree().get_nodes_in_group("chunk_tool_boundary"):
+		chunk_boundary.name = "_%d" % randi()
+		chunk_boundary.queue_free()
 
 	Chunk.set_container(scene)
 	Chunk.set_distance(scene.get("distance"))
@@ -60,6 +55,9 @@ func _button_pressed() -> void:
 	# end duplicate code
 		var chunk_boundary := chunk_template.instance() as Spatial
 		chunk_boundary.translation = Vector3(chunk_center[0] * size, 0, chunk_center[1] * size)
-		chunk_boundaries.add_child(chunk_boundary)
+		chunk_boundary.name = chunk_node.name + "_boundary"
+		chunk_boundary.add_to_group("chunk_tool_boundary")
+		container.add_child(chunk_boundary)
+		chunk_boundary.owner = container
 		Chunk.make_local(chunk_node, container)
 		yield(get_tree(), "idle_frame")
