@@ -1,6 +1,6 @@
 [gd_scene load_steps=6 format=2]
 
-[ext_resource path="res://addons/chunk/chunk_default.gd" type="Script" id=1]
+[ext_resource path="res://scn/scn_test.res/chunk_default.gd" type="Script" id=1]
 
 [sub_resource type="PlaneMesh" id=1]
 

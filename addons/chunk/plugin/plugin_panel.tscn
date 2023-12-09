@@ -1,0 +1,116 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://addons/chunk/plugin/scr/button.choose_directory.gd" type="Script" id=1]
+[ext_resource path="res://addons/chunk/plugin/scr/button.load_chunk.gd" type="Script" id=2]
+[ext_resource path="res://addons/chunk/plugin/scr/load_config.gd" type="Script" id=4]
+[ext_resource path="res://addons/chunk/plugin/scr/le.only_allow_number.gd" type="Script" id=5]
+[ext_resource path="res://addons/chunk/plugin/scr/button.save_config.gd" type="Script" id=7]
+
+[node name="ChunkTool" type="VBoxContainer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="LoadConfig" type="Node" parent="."]
+script = ExtResource( 4 )
+le_size_path = NodePath("../Size/LineEdit")
+le_directory_path = NodePath("../Directory/LineEdit")
+
+[node name="LabelProject" type="Label" parent="."]
+margin_right = 1024.0
+margin_bottom = 14.0
+text = "Project Settings"
+align = 1
+
+[node name="Size" type="HBoxContainer" parent="."]
+margin_top = 18.0
+margin_right = 1024.0
+margin_bottom = 42.0
+
+[node name="Label" type="Label" parent="Size"]
+margin_top = 5.0
+margin_right = 34.0
+margin_bottom = 19.0
+text = "Size: "
+
+[node name="LineEdit" type="LineEdit" parent="Size"]
+margin_left = 38.0
+margin_right = 1024.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "32"
+script = ExtResource( 5 )
+
+[node name="Directory" type="HBoxContainer" parent="."]
+margin_top = 46.0
+margin_right = 1024.0
+margin_bottom = 70.0
+
+[node name="Label" type="Label" parent="Directory"]
+margin_top = 5.0
+margin_right = 67.0
+margin_bottom = 19.0
+text = "Directory: "
+
+[node name="LineEdit" type="LineEdit" parent="Directory"]
+margin_left = 71.0
+margin_right = 961.0
+margin_bottom = 24.0
+size_flags_horizontal = 3
+text = "res://scn/chunk"
+
+[node name="ButtonChooseDirectory" type="Button" parent="Directory"]
+margin_left = 965.0
+margin_right = 1024.0
+margin_bottom = 24.0
+text = "Browse"
+script = ExtResource( 1 )
+le_directory_path = NodePath("../LineEdit")
+
+[node name="ButtonSaveConfig" type="Button" parent="."]
+margin_top = 74.0
+margin_right = 1024.0
+margin_bottom = 94.0
+text = "Save Config"
+script = ExtResource( 7 )
+le_size_path = NodePath("../Size/LineEdit")
+le_directory_path = NodePath("../Directory/LineEdit")
+save_indicator_path = NodePath("../SaveIndicator")
+
+[node name="SaveIndicator" type="Label" parent="."]
+visible = false
+margin_top = 98.0
+margin_right = 1024.0
+margin_bottom = 112.0
+text = "Config saved!"
+align = 1
+
+[node name="SPACER" type="Control" parent="."]
+margin_top = 98.0
+margin_right = 1024.0
+margin_bottom = 534.0
+size_flags_vertical = 3
+
+[node name="LabelChunk" type="Label" parent="."]
+margin_top = 538.0
+margin_right = 1024.0
+margin_bottom = 552.0
+text = "Chunk Tool"
+align = 1
+
+[node name="ButtonLoad" type="Button" parent="."]
+margin_top = 556.0
+margin_right = 1024.0
+margin_bottom = 576.0
+text = "Load Chunks"
+script = ExtResource( 2 )
+le_size_path = NodePath("../Size/LineEdit")
+le_directory_path = NodePath("../Directory/LineEdit")
+
+[node name="ButtonSave" type="Button" parent="."]
+margin_top = 580.0
+margin_right = 1024.0
+margin_bottom = 600.0
+text = "Save Chunks"
+script = ExtResource( 7 )
+le_size_path = NodePath("../Size/LineEdit")
+le_directory_path = NodePath("../Directory/LineEdit")

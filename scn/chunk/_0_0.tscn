@@ -1,10 +1,10 @@
 [gd_scene load_steps=3 format=2]
 
-[sub_resource type="SpatialMaterial" id=1]
+[sub_resource type="SpatialMaterial" id=3]
 albedo_color = Color( 1, 0, 0, 1 )
 
 [sub_resource type="PlaneMesh" id=2]
-material = SubResource( 1 )
+material = SubResource( 3 )
 
 [node name="_0_0" type="Spatial"]
 

@@ -1,6 +1,13 @@
 class_name Chunk
 
 
+static func make_local(node: Node, owner: Node = null) -> void:
+	node.filename = ""
+	node.owner = owner
+	for child in node.get_children():
+		make_local(child, owner)
+
+
 static func get_chunk_circle_centered() -> Array:
 	return Engine.get_meta("chunk_circle_centered", [])
 
@@ -121,8 +128,10 @@ static func load_chunk(dir: Directory, chunk_x: int, chunk_y: int, x: int, y: in
 	var path: String = get_directory() + "/" + node_name + ".tscn"
 	if dir.file_exists(path):
 		node = load(path).instance()
-	else:
+	elif Engine.has_meta("chunk_default_scene"):
 		node = Engine.get_meta("chunk_default_scene").instance()
+	else:
+		node = Spatial.new()
 	node.translation = Vector3(x * chunk_size, 0, y * chunk_size)
 	node.set_meta("chunk_x", chunk_x)
 	node.set_meta("chunk_y", chunk_y)

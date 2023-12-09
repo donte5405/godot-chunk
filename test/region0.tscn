@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://addons/chunk/plugin/editor_chunk.gd" type="Script" id=1]
+
+[node name="Region0" type="Spatial"]
+script = ExtResource( 1 )
+__meta__ = {
+"is_editor_chunk": true
+}
