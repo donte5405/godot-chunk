@@ -2,6 +2,7 @@ extends Node
 tool
 
 
+var saving := false
 var plugin: EditorPlugin
 
 export var parent_path := NodePath(".")
@@ -15,6 +16,10 @@ func _ready() -> void:
 
 
 func _button_pressed() -> void:
+	if saving:
+		return
+	saving = true
+
 	var scene := plugin.get_editor_interface().get_edited_scene_root() as Spatial
 	if not is_instance_valid(scene):
 		printerr("There is no active scene to save!")
@@ -37,3 +42,6 @@ func _button_pressed() -> void:
 		ResourceSaver.save(path, packed_scene)
 		print("Saved %s " % path)
 		yield(get_tree(), "idle_frame")
+	
+	saving = false
+	print("All chunks saved!")
