@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://addons/chunk/plugin/scr/button.choose_directory.gd" type="Script" id=1]
 [ext_resource path="res://addons/chunk/plugin/scr/button.load_chunk.gd" type="Script" id=2]
+[ext_resource path="res://addons/chunk/plugin/scr/button.save_chunk.gd" type="Script" id=3]
 [ext_resource path="res://addons/chunk/plugin/scr/load_config.gd" type="Script" id=4]
 [ext_resource path="res://addons/chunk/plugin/scr/le.only_allow_number.gd" type="Script" id=5]
 [ext_resource path="res://addons/chunk/plugin/scr/button.save_config.gd" type="Script" id=7]
@@ -111,6 +112,4 @@ margin_top = 580.0
 margin_right = 1024.0
 margin_bottom = 600.0
 text = "Save Chunks"
-script = ExtResource( 7 )
-le_size_path = NodePath("../Size/LineEdit")
-le_directory_path = NodePath("../Directory/LineEdit")
+script = ExtResource( 3 )
