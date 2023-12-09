@@ -5,8 +5,6 @@ tool
 var plugin: EditorPlugin
 
 export var parent_path := NodePath(".")
-export var le_size_path: NodePath
-export var le_directory_path: NodePath
 
 
 func _ready() -> void:
