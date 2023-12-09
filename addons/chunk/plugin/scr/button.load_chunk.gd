@@ -26,7 +26,6 @@ func _button_pressed() -> void:
 		return
 
 	Chunk.set_container(scene)
-	Chunk.set_size(scene.get("size"))
 	Chunk.set_distance(scene.get("distance"))
 	Chunk.set_position(scene.get("position"))
 	var chunk_position: Vector2 = scene.get("position")

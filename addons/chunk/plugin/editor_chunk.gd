@@ -3,7 +3,6 @@ class_name EditorChunk
 tool
 
 
-export var size := 16
 export var distance := 4
 export var position := Vector2()
 
