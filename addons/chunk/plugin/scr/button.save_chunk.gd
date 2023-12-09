@@ -25,6 +25,15 @@ func _button_pressed() -> void:
 	
 	var directory := Chunk.get_directory()
 	for chunk in scene.get_children():
+		var path: String = directory + "/" + chunk.name + ".tscn"
+		var prev_trans: Vector3 = chunk.translation
+		chunk.translation = Vector3.ZERO
+		for child in chunk.get_children():
+			Chunk.make_local(child, chunk)
 		var packed_scene := PackedScene.new()
 		packed_scene.pack(chunk)
-		ResourceSaver.save(directory + "/" + chunk.name + ".tscn", packed_scene)
+		Chunk.make_local(chunk, scene)
+		chunk.translation = prev_trans
+		ResourceSaver.save(path, packed_scene)
+		print("Saved %s " % path)
+		yield(get_tree(), "idle_frame")
