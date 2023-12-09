@@ -11,7 +11,7 @@
 [node name="Chunk" parent="." instance=ExtResource( 1 )]
 chunk_distance = 10
 chunk_default_scene = ExtResource( 3 )
-chunk_directory = "res://scn/chunk"
+chunk_directory = "res://chunk"
 node_to_follow_path = NodePath("../Player")
 
 [node name="Player" type="Spatial" parent="."]
