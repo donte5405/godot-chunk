@@ -38,7 +38,7 @@ margin_left = 38.0
 margin_right = 1024.0
 margin_bottom = 24.0
 size_flags_horizontal = 3
-text = "32"
+text = "16"
 script = ExtResource( 5 )
 
 [node name="Directory" type="HBoxContainer" parent="."]

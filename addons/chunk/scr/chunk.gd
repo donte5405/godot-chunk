@@ -93,7 +93,7 @@ static func set_position(value: Vector2, notify: bool = true) -> void:
 
 
 static func get_size() -> float:
-	return Engine.get_meta("chunk_size", 32.0)
+	return Engine.get_meta("chunk_size", 16.0)
 
 
 static func set_size(value: float, notify: bool = true) -> void:

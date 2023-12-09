@@ -13,7 +13,7 @@ func _ready() -> void:
 	if not file.file_exists(CONFIG_PATH):
 		file.open(CONFIG_PATH, File.WRITE)
 		file.store_string(JSON.print({
-			chunk_size = 32,
+			chunk_size = 16,
 			directory = "res://world",
 		}))
 		file.close()
