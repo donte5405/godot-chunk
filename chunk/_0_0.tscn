@@ -7,6 +7,10 @@ albedo_color = Color( 1, 0, 0, 1 )
 material = SubResource( 3 )
 
 [node name="_0_0" type="Spatial"]
+__meta__ = {
+"chunk_x": 0,
+"chunk_y": 0
+}
 
 [node name="MeshInstance" type="MeshInstance" parent="."]
 transform = Transform( 16, 0, 0, 0, 1, 0, 0, 0, 16, 0, 0, 0 )

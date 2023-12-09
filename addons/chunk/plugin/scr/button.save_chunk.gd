@@ -30,10 +30,15 @@ func _button_pressed() -> void:
 	
 	var directory := Chunk.get_directory()
 	for chunk in scene.get_children():
+		if not chunk.is_in_group("chunk"):
+			continue
+		var children: Array = chunk.get_children()
+		if children.size() == 0:
+			continue
 		var path: String = directory + "/" + chunk.name + ".tscn"
 		var prev_trans: Vector3 = chunk.translation
 		chunk.translation = Vector3.ZERO
-		for child in chunk.get_children():
+		for child in children:
 			Chunk.make_local(child, chunk)
 		var packed_scene := PackedScene.new()
 		packed_scene.pack(chunk)
