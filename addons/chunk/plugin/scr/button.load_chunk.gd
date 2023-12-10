@@ -9,6 +9,25 @@ export var le_size_path: NodePath
 export var le_directory_path: NodePath
 
 
+func create_raycast(parent: Node, size: float, trans: Vector3, cast_to: Vector3) -> RayCast:
+	var r := RayCast.new()
+	r.debug_shape_custom_color = Color.yellow
+	r.translation = trans * size
+	r.cast_to = cast_to * size
+	r.enabled = true
+	parent.add_child(r)
+	r.owner = parent
+	return r
+
+
+func create_raycasts(parent: Spatial, size: float) -> void:
+	var top_left := Vector3(-1, 0, -1) * size
+	create_raycast(parent, size, Vector3(-1, 0, -1), Vector3(2, 0, 0))
+	create_raycast(parent, size, Vector3(-1, 0, -1), Vector3(0, 0, 2))
+	create_raycast(parent, size, Vector3(-1, 0, 1), Vector3(2, 0, 0))
+	create_raycast(parent, size, Vector3(1, 0, -1), Vector3(0, 0, 2))
+
+
 func _ready() -> void:
 	if not Engine.has_meta("chunk_tool_plugin"):
 		return
@@ -34,6 +53,7 @@ func _button_pressed() -> void:
 	Chunk.set_distance(scene.get("distance"))
 	Chunk.set_position(scene.get("position"))
 	var chunk_position: Vector2 = scene.get("position")
+	var size_orig := Chunk.get_size()
 
 	# duplicate code: load chunk
 	var dir := Directory.new()
@@ -53,11 +73,12 @@ func _button_pressed() -> void:
 		chunk_node.owner = container
 
 	# end duplicate code
-		var chunk_boundary := chunk_template.instance() as Spatial
+		var chunk_boundary := Position3D.new()
 		chunk_boundary.translation = Vector3(chunk_center[0] * size, 0, chunk_center[1] * size)
 		chunk_boundary.name = chunk_node.name + "_boundary"
 		chunk_boundary.add_to_group("chunk_tool_boundary")
 		container.add_child(chunk_boundary)
 		chunk_boundary.owner = container
+		create_raycasts(chunk_boundary, size_orig)
 		Chunk.make_local(chunk_node, container)
 		yield(get_tree(), "idle_frame")
